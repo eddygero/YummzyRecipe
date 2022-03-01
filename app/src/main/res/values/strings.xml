@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">YummzyRecipe</string>
+    <string name="related_recipes">Related recipes</string>
 </resources>
