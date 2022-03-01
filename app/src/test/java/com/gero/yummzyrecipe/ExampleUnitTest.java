@@ -1,4 +1,4 @@
-package com.gero.yummzyrecipe;
+package com.kosgei.letscook;
 
 import org.junit.Test;
 
