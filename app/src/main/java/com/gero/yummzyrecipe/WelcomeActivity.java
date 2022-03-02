@@ -1,4 +1,4 @@
-package com.kosgei.letscook;
+package com.gero.yummzyrecipe;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.gero.yummzyrecipe.HomeActivity;
+import com.gero.yummzyrecipe.LoginActivity;
+import com.gero.yummzyrecipe.R;
+import com.gero.yummzyrecipe.SignUpActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -44,12 +48,12 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         if (v == toLogin)
         {
-            startActivity(new Intent(WelcomeActivity.this,LoginActivity.class));
+            startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
         }
 
         else if (v == toSignUp)
         {
-            startActivity(new Intent(WelcomeActivity.this,SignUpActivity.class));
+            startActivity(new Intent(WelcomeActivity.this, SignUpActivity.class));
         }
 
     }
@@ -60,7 +64,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null)
         {
-            startActivity(new Intent(WelcomeActivity.this,HomeActivity.class));
+            startActivity(new Intent(WelcomeActivity.this, HomeActivity.class));
             finish();
         }
 
