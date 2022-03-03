@@ -1,4 +1,4 @@
-package com.kosgei.letscook;
+package com.gero.yummzyrecipe;
 
 import android.content.Context;
 
