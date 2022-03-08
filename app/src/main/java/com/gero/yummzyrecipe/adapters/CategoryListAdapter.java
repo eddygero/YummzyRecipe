@@ -1,17 +1,24 @@
 package com.gero.yummzyrecipe.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gero.yummzyrecipe.R;
-import com.gero.yummzyrecipe.models.Category;
 import com.gero.yummzyrecipe.R;
+import com.gero.yummzyrecipe.models.Category;
+
+import com.gero.yummzyrecipe.ui.RecipeListActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -22,6 +29,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     private ArrayList<Category> categories = new ArrayList<>();
     private Context context;
 
+    private static final String TAG = "CategoryListAdapter";
     public CategoryListAdapter(ArrayList<Category> categories, Context context) {
         this.categories = categories;
         this.context = context;
@@ -44,9 +52,11 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
         return categories.size();
     }
 
-    public class CategoryViewHolder extends RecyclerView.ViewHolder {
+    public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.category_name)
         TextView categoryTV;
+        @BindView(R.id.category_image)
+        ImageView categoryImageView;
 
         private Context context;
 
@@ -55,11 +65,22 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
 
             ButterKnife.bind(this,itemView);
             context = itemView.getContext();
+            itemView.setOnClickListener(this);
         }
 
         public void bindCategory(Category category)
         {
             categoryTV.setText(category.getName());
+            Picasso.get().load(category.getUrl()).into(categoryImageView);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            int itemPosition = getLayoutPosition();
+            Intent intent = new Intent(context, RecipeListActivity.class);
+            intent.putExtra("category",categories.get(itemPosition).getName());
+            context.startActivity(intent);
         }
     }
 }

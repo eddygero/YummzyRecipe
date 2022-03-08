@@ -1,46 +1,65 @@
-package com.gero.yummzyrecipe;
+package com.gero.yummzyrecipe.ui;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+
+import android.view.MenuItem;
+
+import com.gero.yummzyrecipe.R;
+import com.gero.yummzyrecipe.adapters.CategoryListAdapter;
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.gero.yummzyrecipe.R;
+import com.gero.yummzyrecipe.adapters.CategoryListAdapter;
+import com.gero.yummzyrecipe.models.Category;
+
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.gero.yummzyrecipe.adapters.CategoryListAdapter;
-import com.gero.yummzyrecipe.models.Category;
-import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-   @BindView(R.id.categories_recyclerView)
+    @BindView(R.id.categories_recyclerView)
     RecyclerView categoryRecyclerView;
 
     private CategoryListAdapter mAdapter;
 
+    private DatabaseReference mDatabase;
+
+
     //Dummy Category Data
-    ArrayList<Category> categories = new ArrayList<Category>(Arrays.asList(
-            new Category("Beef"),
-            new Category("Pork"),
-            new Category("Chicken"),
-            new Category("Mutton"),
-            new Category("Fish"),
-            new Category("Turkey")));
+//    ArrayList<Category> categories = new ArrayList<Category>(Arrays.asList(
+//            new Category("Beef"),
+//            new Category("Pork"),
+//            new Category("Chicken"),
+//            new Category("Mutton"),
+//            new Category("Fish"),
+//            new Category("Turkey")));
+
+    ArrayList<Category> categories = new ArrayList<Category>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,14 +93,39 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         emailTextView.setText(email);
 
 
-        //setting the layout manager and populating the recyclerview
-        mAdapter = new CategoryListAdapter(categories,getApplicationContext());
-        categoryRecyclerView.setAdapter(mAdapter);
 
-        //RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(HomeActivity.this);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this,2);
-        categoryRecyclerView.setLayoutManager(layoutManager);
-        categoryRecyclerView.setHasFixedSize(true);
+
+
+        //Tryring to implement firebase without ui
+        mDatabase = FirebaseDatabase.getInstance().getReference("categories");
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    Category category = postSnapshot.getValue(Category.class);
+                    categories.add(new Category(category.getName(),category.getUrl()));
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    categories.forEach(P -> System.out.println(P.getName()));
+                }
+                //setting the layout manager and populating the recyclerview
+                mAdapter = new CategoryListAdapter(categories,getApplicationContext());
+                categoryRecyclerView.setAdapter(mAdapter);
+
+                //RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(HomeActivity.this);
+                RecyclerView.LayoutManager layoutManager = new GridLayoutManager(HomeActivity.this,2);
+                categoryRecyclerView.setLayoutManager(layoutManager);
+                categoryRecyclerView.setHasFixedSize(true);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
+
+
 
 
     }

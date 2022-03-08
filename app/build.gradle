@@ -17,9 +17,14 @@ android {
         }
     }
 
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildTypes.each {
+        it.buildConfigField 'String', 'EDAMAM_APP_KEY', edamam_app_key
+        it.buildConfigField 'String', 'EDAMAM_APP_ID', edamam_app_id
     }
 }
 
@@ -40,11 +45,22 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
     implementation 'com.google.firebase:firebase-core:20.1.0'
-
+    implementation 'com.google.firebase:firebase-database:20.0.3'
     implementation 'com.google.firebase:firebase-auth:21.0.1'
 
-//    progress bar
+    //progress bar
     implementation 'com.wang.avi:library:2.1.3'
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    implementation("com.squareup.okhttp3:okhttp:3.14.1")
+
+    implementation 'com.github.florent37:expansionpanel:1.2.2'
+
+    implementation 'org.parceler:parceler-api:1.1.12'
+    annotationProcessor 'org.parceler:parceler:1.1.12'
+
+
 
 }
 

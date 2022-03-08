@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">YUMMZY RECIPES</string>
-    <string name="name">YUMMZY</string>
+    <string name="app_name">YummzyRecipe</string>
+    <string name="name">YummzyRecipe</string>
     <string name="login">LOGIN</string>
     <string name="signup">SIGNUP</string>
     <string name="title_activity_home">Home</string>
@@ -16,4 +16,22 @@
     <string name="favourite">Favourite</string>
     <string name="log_out">Log Out</string>
     <string name="exit">Exit</string>
+    <string name="_123456">123456</string>
+    <string name="account">Account</string>
+    <string name="email">Email</string>
+    <string name="johndoe_gmail_com">johndoe@gmail.com</string>
+    <string name="password">Password</string>
+    <string name="_12345678">12345678</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="_12345678">12345678</string>
+    <string name="sign_up">sign up</string>
+    <string name="join_us">Join Us</string>
+    <string name="john_doe">John Doe</string>
+    <string name="full_names">Full Names</string>
+    <string name="email">Email</string>
+    <string name="johndoe_gmail_com">johndoe@gmail.com</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="login">LOGIN</string>
+    <string name="welcome_back">Welcome Back</string>
 </resources>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg2"
-    tools:context=".SignUpActivity">
+    tools:context=".ui.SignUpActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -17,6 +17,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="585dp"
         android:orientation="vertical"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +29,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             style="@style/TextInputLayoutStyle"
-            android:hint="Full Names"
+            android:hint="@string/full_names"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_editor_absoluteY="80dp">
@@ -36,6 +37,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:id="@+id/name"
+                android:text="@string/john_doe"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName" />
 
@@ -48,7 +50,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginTop="20dp"
             style="@style/TextInputLayoutStyle"
-            android:hint="Email"
+            android:hint="@string/email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_editor_absoluteY="80dp">
@@ -56,6 +58,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:id="@+id/email"
+                android:text="@string/johndoe_gmail_com"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress" />
 
@@ -68,7 +71,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
-            android:hint="Password"
+            android:hint="@string/password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:passwordToggleEnabled="true"
@@ -77,6 +80,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:id="@+id/password"
+                android:text="@string/_12345678"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword" />
 
@@ -89,7 +93,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
-            android:hint="Confirm Password"
+            android:hint="@string/confirm_password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:passwordToggleEnabled="true"
@@ -98,10 +102,17 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/_12345678"
                 android:id="@+id/confirm_password"
                 android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:indicatorName="BallTrianglePathIndicator"
+            />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/sign_up"
@@ -109,12 +120,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="64dp"
-            app:strokeColor="@android:color/black"
+            app:strokeColor="@android:color/white"
             android:layout_marginTop="20dp"
             app:strokeWidth="2dp"
             android:textColor="#fff"
             android:layout_marginEnd="64dp"
-            android:text="sign up"/>
+            android:text="@string/sign_up"/>
 
     </LinearLayout>
 
@@ -125,9 +136,9 @@
         android:layout_marginStart="176dp"
         android:layout_marginEnd="177dp"
         android:layout_marginBottom="63dp"
-        android:text="Join Us"
+        android:text="@string/join_us"
         android:textSize="42sp"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

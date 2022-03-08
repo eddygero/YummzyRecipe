@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg2"
-    tools:context=".LoginActivity">
+    tools:context=".ui.LoginActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -29,7 +29,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             style="@style/TextInputLayoutStyle"
-            android:hint="Email"
+            android:hint="@string/email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_editor_absoluteY="80dp">
@@ -38,7 +38,7 @@
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="johndoe@gmail.com"
+                android:text="@string/johndoe_gmail_com"
                 android:inputType="textEmailAddress" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -50,7 +50,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
-            android:hint="Password"
+            android:hint="@string/password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:passwordToggleEnabled="true"
@@ -59,7 +59,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
-                android:text="12345678"
+                android:text="@string/_12345678"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword" />
 
@@ -80,7 +80,7 @@
             android:layout_gravity="end"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:text="Forgot Password?"
+            android:text="@string/forgot_password"
             android:textAlignment="textEnd"
             android:textAllCaps="false"
             android:textColor="@android:color/white" />
@@ -96,7 +96,7 @@
             app:strokeWidth="2dp"
             android:textColor="#fff"
             android:layout_marginEnd="64dp"
-            android:text="LOGIN"/>
+            android:text="@string/login"/>
 
     </LinearLayout>
 
@@ -107,7 +107,7 @@
         android:layout_marginStart="176dp"
         android:layout_marginEnd="177dp"
         android:layout_marginBottom="63dp"
-        android:text="Welcome Back"
+        android:text="@string/welcome_back"
         android:textSize="42sp"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"

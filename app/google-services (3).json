@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "971775477091",
-    "project_id": "yummzyrecipe-76d1f",
-    "storage_bucket": "yummzyrecipe-76d1f.appspot.com"
+    "project_number": "583100891346",
+    "project_id": "yummzyrecipe",
+    "storage_bucket": "yummzyrecipe.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:971775477091:android:bbda8414887fd476b27f56",
+        "mobilesdk_app_id": "1:583100891346:android:442e5e7ba6b2786db8ed0b",
         "android_client_info": {
           "package_name": "com.gero.yummzyrecipe"
         }
       },
       "oauth_client": [
         {
-          "client_id": "971775477091-smj4eb9df815g1klehjlcph5a6mj742i.apps.googleusercontent.com",
+          "client_id": "583100891346-7navff2kuuchpel4gsqi3jldhs9cun8a.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDaNtk8oI9EzcdcBBkl__FC70PM_DGOb_8"
+          "current_key": "AIzaSyDjlrAxtAdM5AnqINmsrEJmsmwI3Gq6Ga0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "971775477091-smj4eb9df815g1klehjlcph5a6mj742i.apps.googleusercontent.com",
+              "client_id": "583100891346-7navff2kuuchpel4gsqi3jldhs9cun8a.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
