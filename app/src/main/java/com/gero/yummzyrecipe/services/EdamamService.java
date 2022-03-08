@@ -44,7 +44,7 @@ public class EdamamService {
 
     }
 
-    public ArrayList<Recipe> processResults(Response response) {
+    public ArrayList<Recipe> processResults(Response response) throws JSONException {
         ArrayList<Recipe> recipes = new ArrayList<>();
 
         try {
@@ -96,8 +96,6 @@ public class EdamamService {
 
             }
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
             e.printStackTrace();
         }
 

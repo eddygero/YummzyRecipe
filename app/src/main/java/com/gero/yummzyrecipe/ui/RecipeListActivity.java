@@ -19,6 +19,8 @@ import com.gero.yummzyrecipe.models.Recipe;
 
 import com.gero.yummzyrecipe.services.EdamamService;
 
+import org.json.JSONException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -64,7 +66,11 @@ public class RecipeListActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                recipes = edamamService.processResults(response);
+                try {
+                    recipes = edamamService.processResults(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 RecipeListActivity.this.runOnUiThread(new Runnable() {
                     @Override

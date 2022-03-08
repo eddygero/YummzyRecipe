@@ -47,8 +47,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     private CategoryListAdapter mAdapter;
 
-    private DatabaseReference mDatabase;
-
 
     //Dummy Category Data
 //    ArrayList<Category> categories = new ArrayList<Category>(Arrays.asList(
@@ -97,7 +95,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
         //Tryring to implement firebase without ui
-        mDatabase = FirebaseDatabase.getInstance().getReference("categories");
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("categories");
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
