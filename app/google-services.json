@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "237774019317",
+    "firebase_url": "https://yummzyreci-default-rtdb.firebaseio.com",
+    "project_id": "yummzyreci",
+    "storage_bucket": "yummzyreci.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237774019317:android:ca14a233ea84bc158a83bc",
+        "android_client_info": {
+          "package_name": "com.gero.yummzyrecipe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "237774019317-84oqalm7787qpl0sn48vn65hkrrpsiqm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfNzRBtdX9zOL20mnWUJ9vu3f84yKZKOY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "237774019317-84oqalm7787qpl0sn48vn65hkrrpsiqm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
