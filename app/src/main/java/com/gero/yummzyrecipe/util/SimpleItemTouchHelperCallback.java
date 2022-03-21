@@ -1,4 +1,4 @@
-package com.kosgei.letscook.util;
+package com.gero.yummzyrecipe.util;
 
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;

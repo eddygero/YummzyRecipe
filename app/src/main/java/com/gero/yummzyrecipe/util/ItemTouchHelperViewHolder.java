@@ -1,4 +1,4 @@
-package com.kosgei.letscook.util;
+package com.gero.yummzyrecipe.util;
 
 public interface ItemTouchHelperViewHolder {
     void onItemSelected();

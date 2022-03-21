@@ -2,6 +2,7 @@ package com.gero.yummzyrecipe.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcel;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +14,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.gero.yummzyrecipe.R;
-import com.gero.yummzyrecipe.R;
-import com.gero.yummzyrecipe.models.Category;
-
-import com.gero.yummzyrecipe.ui.RecipeListActivity;
+import com.kosgei.letscook.Constants;
+import com.kosgei.letscook.R;
+import com.kosgei.letscook.models.Category;
+import com.kosgei.letscook.ui.RecipeListActivity;
 import com.squareup.picasso.Picasso;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -37,13 +39,13 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
 
     @NonNull
     @Override
-    public CategoryListAdapter.CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_list_item, parent, false);
         return new CategoryViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryListAdapter.CategoryViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         holder.bindCategory(categories.get(position));
     }
 
@@ -79,7 +81,9 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
             Intent intent = new Intent(context, RecipeListActivity.class);
-            intent.putExtra("category",categories.get(itemPosition).getName());
+            intent.putExtra("category", Parcels.wrap(categories.get(itemPosition)));
+            Constants.CATEGORY =categories.get(itemPosition).getName();
+//            intent.putExtra("category",categories.get(itemPosition).getName());
             context.startActivity(intent);
         }
     }

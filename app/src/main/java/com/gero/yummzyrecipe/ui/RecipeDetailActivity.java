@@ -5,10 +5,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 
-
-import com.gero.yummzyrecipe.R;
-import com.gero.yummzyrecipe.adapters.RecipePagerAdapter;
-import com.gero.yummzyrecipe.models.Recipe;
+import com.kosgei.letscook.R;
+import com.kosgei.letscook.adapters.RecipePagerAdapter;
+import com.kosgei.letscook.models.Meal;
+import com.kosgei.letscook.models.Recipe;
 
 import org.parceler.Parcels;
 
@@ -20,7 +20,8 @@ import butterknife.ButterKnife;
 public class RecipeDetailActivity extends AppCompatActivity {
     @BindView(R.id.viewPager)
     ViewPager viewPager;
-    ArrayList<Recipe> recipes = new ArrayList<>();
+    private RecipePagerAdapter recipePagerAdapter;
+    ArrayList<Meal> recipes = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +31,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         recipes = Parcels.unwrap(getIntent().getParcelableExtra("recipes"));
         int startingPosition = getIntent().getIntExtra("position",0);
-        RecipePagerAdapter recipePagerAdapter = new RecipePagerAdapter(getSupportFragmentManager(), recipes);
+        recipePagerAdapter = new RecipePagerAdapter(getSupportFragmentManager(),recipes);
         viewPager.setAdapter(recipePagerAdapter);
         viewPager.setCurrentItem(startingPosition);
+
     }
 }

@@ -12,52 +12,69 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 
-import com.gero.yummzyrecipe.R;
-import com.gero.yummzyrecipe.adapters.CategoryListAdapter;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.gero.yummzyrecipe.R;
-import com.gero.yummzyrecipe.adapters.CategoryListAdapter;
-import com.gero.yummzyrecipe.models.Category;
+import com.kosgei.letscook.R;
+import com.kosgei.letscook.adapters.CategoryListAdapter;
+import com.kosgei.letscook.adapters.LatestMealsAdapter;
+import com.kosgei.letscook.adapters.RecipeListAdapter;
+import com.kosgei.letscook.models.Category;
+import com.kosgei.letscook.models.Meal;
+import com.kosgei.letscook.services.EdamamService;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    @BindView(R.id.categories_recyclerView)
+   @BindView(R.id.categories_recyclerView)
     RecyclerView categoryRecyclerView;
 
-    private CategoryListAdapter mAdapter;
+   @BindView(R.id.latest_recyclerView)
+   RecyclerView latestRecyclerView;
+
+  private LatestMealsAdapter latestMealsAdapter;
+
+    private CategoryListAdapter categoryListAdapter;
+
+    private DatabaseReference mDatabase;
+
+    private ArrayList<Meal> latestMeals;
 
 
-    //Dummy Category Data
-//    ArrayList<Category> categories = new ArrayList<Category>(Arrays.asList(
-//            new Category("Beef"),
-//            new Category("Pork"),
-//            new Category("Chicken"),
-//            new Category("Mutton"),
-//            new Category("Fish"),
-//            new Category("Turkey")));
+    @BindView(R.id.shimmer_view_container)
+    ShimmerFrameLayout mShimmerViewContainer;
 
-    ArrayList<Category> categories = new ArrayList<Category>();
+    @BindView(R.id.shimmer_view_container1)
+    ShimmerFrameLayout mShimmerViewContainer1;
+
+    FirebaseUser user;
+
+    ArrayList<Category> categories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,14 +84,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         ButterKnife.bind(this);
 
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        //get the intent
-        Intent intent = getIntent();
-        String email = intent.getStringExtra("email");
-
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -88,44 +102,81 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         //Update header email address with the email from previous activity
         View headerView =navigationView.getHeaderView(0);
         TextView emailTextView =  headerView.findViewById(R.id.textView_email);
-        emailTextView.setText(email);
+        emailTextView.setText(user.getEmail());
+
+        TextView name = headerView.findViewById(R.id.name);
+        name.setText(user.getDisplayName());
 
 
+        getMealCategories();
+        getLatestMeals();
+    }
 
-
-
-        //Tryring to implement firebase without ui
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("categories");
-        mDatabase.addValueEventListener(new ValueEventListener() {
+    private void getMealCategories() {
+        final EdamamService edamamService = new EdamamService();
+        edamamService.getAllCategories(new Callback() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    Category category = postSnapshot.getValue(Category.class);
-                    categories.add(new Category(category.getName(),category.getUrl()));
-                }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    categories.forEach(P -> System.out.println(P.getName()));
-                }
-                //setting the layout manager and populating the recyclerview
-                mAdapter = new CategoryListAdapter(categories,getApplicationContext());
-                categoryRecyclerView.setAdapter(mAdapter);
+            public void onFailure(Call call, IOException e) {
 
-                //RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(HomeActivity.this);
-                RecyclerView.LayoutManager layoutManager = new GridLayoutManager(HomeActivity.this,2);
-                categoryRecyclerView.setLayoutManager(layoutManager);
-                categoryRecyclerView.setHasFixedSize(true);
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onResponse(Call call, Response response) throws IOException {
 
+                categories = edamamService.processCategoryResults(response);
+
+                HomeActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        categoryListAdapter = new CategoryListAdapter(categories,getApplicationContext());
+                        categoryRecyclerView.setAdapter(categoryListAdapter);
+                        //LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+                        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),2);
+                        categoryRecyclerView.setLayoutManager(layoutManager);
+                       categoryRecyclerView.setHasFixedSize(true);
+
+                        mShimmerViewContainer1.stopShimmer();
+                        mShimmerViewContainer1.setVisibility(View.GONE);
+
+
+                    }
+                });
             }
-
         });
+    }
 
+    public void getLatestMeals()
+    {
+        final EdamamService edamamService = new EdamamService();
+        edamamService.getLatestMeals(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
 
+            }
 
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
 
+                latestMeals = edamamService.processLatestMealsResults(response);
+
+                HomeActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        latestMealsAdapter = new LatestMealsAdapter(getApplicationContext(),latestMeals);
+                        latestRecyclerView.setAdapter(latestMealsAdapter);
+                        //LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+
+                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
+                        latestRecyclerView.setLayoutManager(layoutManager);
+                        latestRecyclerView.setHasFixedSize(true);
+
+                        mShimmerViewContainer.stopShimmer();
+                        mShimmerViewContainer.setVisibility(View.GONE);
+
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -172,6 +223,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         else if (id == R.id.nav_logout)
         {
             FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(HomeActivity.this, WelcomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+        else if(id == R.id.nav_favourite)
+        {
+            startActivity(new Intent(HomeActivity.this,SavedRecipeListActivity.class));
+        }
+        else if(id == R.id.nav_exit)
+        {
             Toast.makeText(this, "Bye", Toast.LENGTH_SHORT).show();
             finish();
         }

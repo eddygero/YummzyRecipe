@@ -9,12 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.gero.yummzyrecipe.R;
-import com.gero.yummzyrecipe.ui.HomeActivity;
-import com.gero.yummzyrecipe.ui.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.gero.yummzyrecipe.R;
+import com.kosgei.letscook.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,7 +50,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
         else if (v == toSignUp)
         {
-            startActivity(new Intent(WelcomeActivity.this, com.gero.yummzyrecipe.ui.SignUpActivity.class));
+            startActivity(new Intent(WelcomeActivity.this, SignUpActivity.class));
         }
 
     }

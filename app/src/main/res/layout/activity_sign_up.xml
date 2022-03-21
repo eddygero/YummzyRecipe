@@ -80,7 +80,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:id="@+id/password"
-                android:text="@string/_12345678"
+                android:text="@string/_123456"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword" />
 
@@ -102,7 +102,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/_12345678"
+                android:text="@string/_123456"
                 android:id="@+id/confirm_password"
                 android:inputType="textPassword" />
 

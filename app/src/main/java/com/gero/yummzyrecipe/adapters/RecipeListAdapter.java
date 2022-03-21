@@ -2,6 +2,7 @@ package com.gero.yummzyrecipe.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +10,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.gero.yummzyrecipe.R;
-
-import com.gero.yummzyrecipe.models.Recipe;
-
-import com.gero.yummzyrecipe.ui.RecipeDetailActivity;
+import com.kosgei.letscook.R;
+import com.kosgei.letscook.models.Meal;
+import com.kosgei.letscook.models.Recipe;
+import com.kosgei.letscook.ui.RecipeDetailActivity;
+import com.kosgei.letscook.ui.RecipeDetailFragment;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -27,9 +30,9 @@ import butterknife.ButterKnife;
 
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder> {
     private Context context;
-    private ArrayList<Recipe> recipes;
+    private ArrayList<Meal> recipes;
 
-    public RecipeListAdapter(Context context,ArrayList<Recipe> recipes) {
+    public RecipeListAdapter(Context context,ArrayList<Meal> recipes) {
         this.context = context;
         this.recipes = recipes;
     }
@@ -37,7 +40,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     @NonNull
     @Override
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_list_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_list_item_3,parent,false);
         return new RecipeViewHolder(view);
     }
 
@@ -60,18 +63,40 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
         private Context context;
 
+        private int mOrientation;
+
         RecipeViewHolder(@NonNull View itemView) {
             super(itemView);
 
             ButterKnife.bind(this,itemView);
             context = itemView.getContext();
             itemView.setOnClickListener(this);
+
+            mOrientation = itemView.getResources().getConfiguration().orientation;
+
+            // Checks if the recorded orientation matches Android's landscape configuration.
+            // if so, we create a new DetailFragment to display in our special landscape layout:
+            if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                createDetailFragment(0);
+            }
         }
 
-       public void bindRecipe(Recipe recipe)
+        // Takes position of restaurant in list as parameter:
+        private void createDetailFragment(int position) {
+            // Creates new RestaurantDetailFragment with the given position:
+            RecipeDetailFragment detailFragment = RecipeDetailFragment.newInstance(recipes, position);
+            // Gathers necessary components to replace the FrameLayout in the layout with the RestaurantDetailFragment:
+            FragmentTransaction ft = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+            //  Replaces the FrameLayout with the RestaurantDetailFragment:
+            ft.replace(R.id.recipeDetailContainer, detailFragment);
+            // Commits these changes:
+            ft.commit();
+        }
+
+       public void bindRecipe(Meal meal)
         {
-            recipeTV.setText(recipe.getName());
-            Picasso.get().load(recipe.getImage()).into(recipeImageView);
+            recipeTV.setText(meal.getName());
+            Picasso.get().load(meal.getImage()).into(recipeImageView);
         }
 
 
@@ -79,11 +104,16 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         @Override
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
-            Intent intent = new Intent(context, RecipeDetailActivity.class);
-            intent.putExtra("position", itemPosition);
-            intent.putExtra("recipes", Parcels.wrap(recipes));
-            context.startActivity(intent);
 
+            if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                createDetailFragment(itemPosition);
+            } else
+            {
+                Intent intent = new Intent(context, RecipeDetailActivity.class);
+                intent.putExtra("position", itemPosition);
+                intent.putExtra("recipes", Parcels.wrap(recipes));
+                context.startActivity(intent);
+            }
         }
     }
 }

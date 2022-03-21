@@ -1,4 +1,4 @@
-package com.kosgei.letscook.adapters;
+package com.gero.yummzyrecipe.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -34,7 +34,7 @@ import org.parceler.Parcels;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class FirebaseMealListAdapter extends FirebaseRecyclerAdapter<Meal, com.kosgei.letscook.adapters.FirebaseRecipeViewHolder> implements ItemTouchHelperAdapter {
+public class FirebaseMealListAdapter extends FirebaseRecyclerAdapter<Meal,FirebaseRecipeViewHolder> implements ItemTouchHelperAdapter {
     private DatabaseReference mRef;
     private OnStartDragListener mOnStartDragListener;
     private Context mContext;
@@ -84,7 +84,7 @@ public class FirebaseMealListAdapter extends FirebaseRecyclerAdapter<Meal, com.k
 
     }
     @Override
-    protected void onBindViewHolder(@NonNull com.kosgei.letscook.adapters.FirebaseRecipeViewHolder viewHolder, int position, @NonNull Meal meal) {
+    protected void onBindViewHolder(@NonNull FirebaseRecipeViewHolder viewHolder, int position, @NonNull Meal meal) {
         viewHolder.bindRestaurant(meal);
 
         mOrientation = viewHolder.itemView.getResources().getConfiguration().orientation;
@@ -111,18 +111,18 @@ public class FirebaseMealListAdapter extends FirebaseRecyclerAdapter<Meal, com.k
                 if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                     createDetailFragment(itemPosition);
                 } else
-                {
-                    Intent intent = new Intent(mContext, RecipeDetailActivity.class);
-                    intent.putExtra("position", itemPosition);
-                    intent.putExtra("recipes", Parcels.wrap(mMeals));
+            {
+                Intent intent = new Intent(mContext, RecipeDetailActivity.class);
+                intent.putExtra("position", itemPosition);
+                intent.putExtra("recipes", Parcels.wrap(mMeals));
 
-                    mContext.startActivity(intent);
-                }
+                mContext.startActivity(intent);
             }
+                    }
 
 
-        });
-    }
+                });
+            }
 
 
     private void createDetailFragment(int position) {
@@ -137,9 +137,9 @@ public class FirebaseMealListAdapter extends FirebaseRecyclerAdapter<Meal, com.k
     }
     @NonNull
     @Override
-    public com.kosgei.letscook.adapters.FirebaseRecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FirebaseRecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_list_item_2, parent, false);
-        return new com.kosgei.letscook.adapters.FirebaseRecipeViewHolder(view);
+        return new FirebaseRecipeViewHolder (view);
     }
 
     @Override

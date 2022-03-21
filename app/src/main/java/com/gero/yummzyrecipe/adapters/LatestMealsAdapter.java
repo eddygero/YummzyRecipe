@@ -35,13 +35,13 @@ public class LatestMealsAdapter extends RecyclerView.Adapter<LatestMealsAdapter.
 
     @NonNull
     @Override
-    public LatestMealsAdapter.MealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_list_item,parent,false);
-        return new LatestMealsAdapter.MealViewHolder(view);
+        return new MealViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LatestMealsAdapter.MealViewHolder  holder, int position) {
+    public void onBindViewHolder(@NonNull MealViewHolder  holder, int position) {
         holder.bindRecipe(meals.get(position));
     }
 
@@ -86,3 +86,4 @@ public class LatestMealsAdapter extends RecyclerView.Adapter<LatestMealsAdapter.
         }
     }
 }
+

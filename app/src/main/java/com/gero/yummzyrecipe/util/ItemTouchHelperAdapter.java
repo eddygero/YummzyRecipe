@@ -1,4 +1,4 @@
-package com.kosgei.letscook.util;
+package com.gero.yummzyrecipe.util;
 
 public interface ItemTouchHelperAdapter {
     boolean onItemMove(int fromPosition, int toPosition);

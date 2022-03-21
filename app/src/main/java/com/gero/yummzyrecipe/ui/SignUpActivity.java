@@ -5,34 +5,37 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.gero.yummzyrecipe.R;
-import com.gero.yummzyrecipe.ui.HomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.gero.yummzyrecipe.R;
+import com.kosgei.letscook.R;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = SignUpActivity.class.getSimpleName();
     @BindView(R.id.name) EditText names;
     @BindView(R.id.email) EditText email;
     @BindView(R.id.password) EditText password;
     @BindView(R.id.confirm_password) EditText confirm_password;
     @BindView(R.id.sign_up) Button signUp;
+
+
 
     @BindView(R.id.loading)
     AVLoadingIndicatorView loadingIndicatorView;
@@ -111,19 +114,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     loadingIndicatorView.hide();
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    assert user != null;
-                                    mDatabase.child("Users").child(user.getUid()).child("name").setValue(names.getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
-
-                                            //avoids using the back btn to go back to the signup activity after successful login
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                            startActivity(intent);
-                                        }
-                                    });
+                                    Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
+                                    //avoids using the back btn to go back to the signup activity after successful login
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    setDisplayName(task.getResult().getUser());
+                                    startActivity(intent);
                                 } else {
                                     loadingIndicatorView.hide();
                                     Toast.makeText(SignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -134,5 +130,21 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             }
 
         }
+    }
+
+    public void setDisplayName(final FirebaseUser firebaseUser)
+    {
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(names.getText().toString().trim())
+                .build();
+        firebaseUser.updateProfile(profileUpdates)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "User profile updated.");
+                        }
+                    }
+                });
     }
 }

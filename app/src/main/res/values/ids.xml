@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="latest_recyclerView" type="id" />
+    <item name="shimmer_view_container1" type="id" />
+    <item name="action_search" type="id" />
+</resources>
