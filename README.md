@@ -12,5 +12,9 @@ Android app that helps to see and share different recipes.
 Android SDK v28
 Latest Android Build Tools
 
+## Setup and installation
+1. Clone the repo
+
+
 ## License
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit-125x28.png?v=103)](LICENSE)
