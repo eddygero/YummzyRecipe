@@ -4,7 +4,7 @@ import org.parceler.Parcel;
 
 @Parcel
 public class Category {
-    private String id,name,url,category;
+    public String id,name,url,category;
 
     public Category() {
     }

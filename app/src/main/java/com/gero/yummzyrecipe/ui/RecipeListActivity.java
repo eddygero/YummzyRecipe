@@ -2,7 +2,8 @@ package com.gero.yummzyrecipe.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import com.kosgei.letscook.R;
+
+import com.gero.yummzyrecipe.R;
 import butterknife.ButterKnife;
 
 public class RecipeListActivity extends AppCompatActivity {

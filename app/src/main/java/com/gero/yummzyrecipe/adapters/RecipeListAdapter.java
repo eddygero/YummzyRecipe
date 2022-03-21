@@ -14,11 +14,15 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kosgei.letscook.R;
-import com.kosgei.letscook.models.Meal;
-import com.kosgei.letscook.models.Recipe;
-import com.kosgei.letscook.ui.RecipeDetailActivity;
-import com.kosgei.letscook.ui.RecipeDetailFragment;
+import com.gero.yummzyrecipe.R;
+import com.gero.yummzyrecipe.R;
+import com.gero.yummzyrecipe.models.Meal;
+import com.gero.yummzyrecipe.models.Meal;
+import com.gero.yummzyrecipe.models.Recipe;
+import com.gero.yummzyrecipe.ui.RecipeDetailActivity;
+import com.gero.yummzyrecipe.ui.RecipeDetailActivity;
+import com.gero.yummzyrecipe.ui.RecipeDetailFragment;
+import com.gero.yummzyrecipe.ui.RecipeDetailFragment;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;

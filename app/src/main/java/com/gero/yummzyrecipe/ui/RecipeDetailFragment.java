@@ -22,6 +22,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gero.yummzyrecipe.Constants;
+import com.gero.yummzyrecipe.R;
+import com.gero.yummzyrecipe.models.Meal;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.chip.Chip;
@@ -29,10 +32,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.kosgei.letscook.Constants;
-import com.kosgei.letscook.R;
-import com.kosgei.letscook.models.Meal;
-import com.kosgei.letscook.models.Recipe;
+import com.gero.yummzyrecipe.Constants;
+import com.gero.yummzyrecipe.R;
+import com.gero.yummzyrecipe.models.Meal;
+import com.gero.yummzyrecipe.models.Recipe;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;

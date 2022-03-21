@@ -13,16 +13,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.gero.yummzyrecipe.Constants;
+import com.gero.yummzyrecipe.R;
+import com.gero.yummzyrecipe.adapters.FirebaseMealListAdapter;
+import com.gero.yummzyrecipe.models.Meal;
+import com.gero.yummzyrecipe.util.OnStartDragListener;
+import com.gero.yummzyrecipe.util.SimpleItemTouchHelperCallback;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.kosgei.letscook.Constants;
-import com.kosgei.letscook.R;
-import com.kosgei.letscook.adapters.FirebaseMealListAdapter;
-import com.kosgei.letscook.models.Meal;
-import com.kosgei.letscook.util.OnStartDragListener;
-import com.kosgei.letscook.util.SimpleItemTouchHelperCallback;
+import com.gero.yummzyrecipe.Constants;
+import com.gero.yummzyrecipe.R;
+import com.gero.yummzyrecipe.adapters.FirebaseMealListAdapter;
+import com.gero.yummzyrecipe.models.Meal;
+import com.gero.yummzyrecipe.util.OnStartDragListener;
+import com.gero.yummzyrecipe.util.SimpleItemTouchHelperCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -20,12 +20,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.kosgei.letscook.Constants;
-import com.kosgei.letscook.R;
-import com.kosgei.letscook.adapters.RecipeListAdapter;
-import com.kosgei.letscook.models.Category;
-import com.kosgei.letscook.models.Meal;
-import com.kosgei.letscook.services.EdamamService;
+
+import com.gero.yummzyrecipe.Constants;
+
+import com.gero.yummzyrecipe.R;
+
+import com.gero.yummzyrecipe.adapters.RecipeListAdapter;
+import com.gero.yummzyrecipe.models.Category;
+import com.gero.yummzyrecipe.models.Meal;
+import com.gero.yummzyrecipe.models.Meal;
+import com.gero.yummzyrecipe.services.EdamamService;
+import com.gero.yummzyrecipe.services.EdamamService;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;

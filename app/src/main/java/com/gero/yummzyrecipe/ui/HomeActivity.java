@@ -1,44 +1,33 @@
 package com.gero.yummzyrecipe.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-
-import android.view.MenuItem;
-
-import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.kosgei.letscook.R;
-import com.kosgei.letscook.adapters.CategoryListAdapter;
-import com.kosgei.letscook.adapters.LatestMealsAdapter;
-import com.kosgei.letscook.adapters.RecipeListAdapter;
-import com.kosgei.letscook.models.Category;
-import com.kosgei.letscook.models.Meal;
-import com.kosgei.letscook.services.EdamamService;
-
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.widget.TextView;
-import android.widget.Toast;
+import com.facebook.shimmer.ShimmerFrameLayout;
+import com.gero.yummzyrecipe.R;
+import com.gero.yummzyrecipe.adapters.CategoryListAdapter;
+import com.gero.yummzyrecipe.adapters.LatestMealsAdapter;
+import com.gero.yummzyrecipe.models.Category;
+import com.gero.yummzyrecipe.models.Meal;
+import com.gero.yummzyrecipe.services.EdamamService;
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,9 +40,11 @@ import okhttp3.Response;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+   @SuppressLint("NonConstantResourceId")
    @BindView(R.id.categories_recyclerView)
     RecyclerView categoryRecyclerView;
 
+   @SuppressLint("NonConstantResourceId")
    @BindView(R.id.latest_recyclerView)
    RecyclerView latestRecyclerView;
 
@@ -61,20 +52,23 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     private CategoryListAdapter categoryListAdapter;
 
-    private DatabaseReference mDatabase;
-
     private ArrayList<Meal> latestMeals;
 
 
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.shimmer_view_container)
     ShimmerFrameLayout mShimmerViewContainer;
 
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.shimmer_view_container1)
     ShimmerFrameLayout mShimmerViewContainer1;
 
     FirebaseUser user;
 
     ArrayList<Category> categories;
+
+    public HomeActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,14 +108,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     private void getMealCategories() {
         final EdamamService edamamService = new EdamamService();
-        edamamService.getAllCategories(new Callback() {
+        EdamamService.getAllCategories(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, IOException e) {
 
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
 
                 categories = edamamService.processCategoryResults(response);
 
@@ -148,32 +142,29 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public void getLatestMeals()
     {
         final EdamamService edamamService = new EdamamService();
-        edamamService.getLatestMeals(new Callback() {
+        EdamamService.getLatestMeals(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
 
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
 
                 latestMeals = edamamService.processLatestMealsResults(response);
 
-                HomeActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        latestMealsAdapter = new LatestMealsAdapter(getApplicationContext(),latestMeals);
-                        latestRecyclerView.setAdapter(latestMealsAdapter);
-                        //LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+                HomeActivity.this.runOnUiThread(() -> {
+                    latestMealsAdapter = new LatestMealsAdapter(getApplicationContext(),latestMeals);
+                    latestRecyclerView.setAdapter(latestMealsAdapter);
+                    //LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
-                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
-                        latestRecyclerView.setLayoutManager(layoutManager);
-                        latestRecyclerView.setHasFixedSize(true);
+                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
+                    latestRecyclerView.setLayoutManager(layoutManager);
+                    latestRecyclerView.setHasFixedSize(true);
 
-                        mShimmerViewContainer.stopShimmer();
-                        mShimmerViewContainer.setVisibility(View.GONE);
+                    mShimmerViewContainer.stopShimmer();
+                    mShimmerViewContainer.setVisibility(View.GONE);
 
-                    }
                 });
             }
         });

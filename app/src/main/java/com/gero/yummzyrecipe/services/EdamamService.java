@@ -1,9 +1,11 @@
 package com.gero.yummzyrecipe.services;
 
-import com.kosgei.letscook.Constants;
-import com.kosgei.letscook.models.Category;
-import com.kosgei.letscook.models.Meal;
-import com.kosgei.letscook.models.Recipe;
+
+import com.gero.yummzyrecipe.Constants;
+import com.gero.yummzyrecipe.models.Category;
+
+import com.gero.yummzyrecipe.models.Meal;
+import com.gero.yummzyrecipe.models.Recipe;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -11,10 +11,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kosgei.letscook.R;
-import com.kosgei.letscook.models.Meal;
-import com.kosgei.letscook.models.Recipe;
-import com.kosgei.letscook.ui.RecipeDetailActivity;
+import com.gero.yummzyrecipe.R;
+import com.gero.yummzyrecipe.R;
+import com.gero.yummzyrecipe.models.Meal;
+import com.gero.yummzyrecipe.models.Meal;
+import com.gero.yummzyrecipe.models.Recipe;
+import com.gero.yummzyrecipe.ui.RecipeDetailActivity;
+import com.gero.yummzyrecipe.ui.RecipeDetailActivity;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;

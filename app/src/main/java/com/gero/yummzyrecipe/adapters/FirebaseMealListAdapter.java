@@ -14,6 +14,12 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.gero.yummzyrecipe.R;
+import com.gero.yummzyrecipe.models.Meal;
+import com.gero.yummzyrecipe.ui.RecipeDetailActivity;
+import com.gero.yummzyrecipe.ui.RecipeDetailFragment;
+import com.gero.yummzyrecipe.util.ItemTouchHelperAdapter;
+import com.gero.yummzyrecipe.util.OnStartDragListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,13 +27,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.kosgei.letscook.Constants;
-import com.kosgei.letscook.R;
-import com.kosgei.letscook.models.Meal;
-import com.kosgei.letscook.ui.RecipeDetailActivity;
-import com.kosgei.letscook.ui.RecipeDetailFragment;
-import com.kosgei.letscook.util.ItemTouchHelperAdapter;
-import com.kosgei.letscook.util.OnStartDragListener;
+import com.gero.yummzyrecipe.Constants;
+import com.gero.yummzyrecipe.R;
+import com.gero.yummzyrecipe.models.Meal;
+import com.gero.yummzyrecipe.ui.RecipeDetailActivity;
+import com.gero.yummzyrecipe.ui.RecipeDetailFragment;
+import com.gero.yummzyrecipe.util.ItemTouchHelperAdapter;
+import com.gero.yummzyrecipe.util.OnStartDragListener;
 
 import org.parceler.Parcels;
 

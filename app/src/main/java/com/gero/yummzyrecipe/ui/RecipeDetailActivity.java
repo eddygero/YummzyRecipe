@@ -5,10 +5,13 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 
-import com.kosgei.letscook.R;
-import com.kosgei.letscook.adapters.RecipePagerAdapter;
-import com.kosgei.letscook.models.Meal;
-import com.kosgei.letscook.models.Recipe;
+
+import com.gero.yummzyrecipe.R;
+
+import com.gero.yummzyrecipe.adapters.RecipePagerAdapter;
+
+import com.gero.yummzyrecipe.models.Meal;
+import com.gero.yummzyrecipe.models.Recipe;
 
 import org.parceler.Parcels;
 

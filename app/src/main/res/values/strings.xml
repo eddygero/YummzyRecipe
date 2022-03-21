@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">LetsCook</string>
-    <string name="name">LETS COOK</string>
+    <string name="app_name">Yummzyrecipe</string>
+    <string name="name">YummzyRecipe</string>
     <string name="login">LOGIN</string>
     <string name="signup">SIGNUP</string>
     <string name="title_activity_home">Home</string>

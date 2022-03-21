@@ -14,10 +14,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kosgei.letscook.Constants;
-import com.kosgei.letscook.R;
-import com.kosgei.letscook.models.Category;
-import com.kosgei.letscook.ui.RecipeListActivity;
+
+import com.gero.yummzyrecipe.Constants;
+import com.gero.yummzyrecipe.R;
+import com.gero.yummzyrecipe.R;
+import com.gero.yummzyrecipe.models.Category;
+import com.gero.yummzyrecipe.ui.RecipeListActivity;
+import com.gero.yummzyrecipe.ui.RecipeListActivity;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;

@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.kosgei.letscook.models.Meal;
-import com.kosgei.letscook.models.Recipe;
-import com.kosgei.letscook.ui.RecipeDetailFragment;
+
+import com.gero.yummzyrecipe.models.Meal;
+import com.gero.yummzyrecipe.models.Recipe;
+
+import com.gero.yummzyrecipe.ui.RecipeDetailFragment;
 
 import java.util.ArrayList;
 

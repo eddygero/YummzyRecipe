@@ -9,9 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.gero.yummzyrecipe.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.kosgei.letscook.R;
+import com.gero.yummzyrecipe.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
