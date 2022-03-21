@@ -8,6 +8,7 @@ Android app that helps to see and share different recipes.
 5. Junit 5
 6. Firebase Real time database
 
+## Prerequisites
 
 ## License
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit-125x28.png?v=103)](LICENSE)
