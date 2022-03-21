@@ -16,6 +16,7 @@ Latest Android Build Tools
 1. Clone the repo
 2. Open using android studio
 3. If prompted for a gradle configuration, accept the default settings. Alternatively use the "gradlew build" command to build the project directly
-
+4. Setup Emulator or connect an android phone and enable USB debugging
+    5. Run the app
 ## License
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit-125x28.png?v=103)](LICENSE)
