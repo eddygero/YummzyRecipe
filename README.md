@@ -18,5 +18,12 @@ Latest Android Build Tools
 3. If prompted for a gradle configuration, accept the default settings. Alternatively use the "gradlew build" command to build the project directly
 4. Setup Emulator or connect an android phone and enable USB debugging
     5. Run the app
+
+## API
+https://www.themealdb.com/api.php
+
+## Issues
+There are no known bugs in the application but if you encounter any please open an new issue on this repo.
+
 ## License
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit-125x28.png?v=103)](LICENSE)
