@@ -1,16 +1,16 @@
 package com.gero.yummzyrecipe.ui;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.gero.yummzyrecipe.Constants;
@@ -23,12 +23,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.gero.yummzyrecipe.Constants;
-import com.gero.yummzyrecipe.R;
-import com.gero.yummzyrecipe.adapters.FirebaseMealListAdapter;
-import com.gero.yummzyrecipe.models.Meal;
-import com.gero.yummzyrecipe.util.OnStartDragListener;
-import com.gero.yummzyrecipe.util.SimpleItemTouchHelperCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +32,7 @@ public class SavedRecipeListFragment extends Fragment implements OnStartDragList
     private ItemTouchHelper mItemTouchHelper;
 
 
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.recipeListRecycler)
     RecyclerView mRecyclerView;
 
@@ -63,6 +58,7 @@ public class SavedRecipeListFragment extends Fragment implements OnStartDragList
     }
     private void setUpFirebaseAdapter(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        assert user != null;
         String uid = user.getUid();
         //mRecipeReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_RECIPES).child(uid);
 

@@ -39,7 +39,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="johndoe@gmail.com"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                tools:ignore="HardcodedText" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -54,7 +55,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:passwordToggleEnabled="true"
-            tools:layout_editor_absoluteY="200dp">
+            tools:layout_editor_absoluteY="200dp"
+            tools:ignore="HardcodedText">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password"
@@ -83,7 +85,8 @@
             android:text="Forgot Password?"
             android:textAlignment="textEnd"
             android:textAllCaps="false"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            tools:ignore="HardcodedText" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/login"
@@ -96,7 +99,8 @@
             app:strokeWidth="2dp"
             android:textColor="#fff"
             android:layout_marginEnd="64dp"
-            android:text="LOGIN"/>
+            android:text="LOGIN"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 
@@ -112,6 +116,7 @@
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

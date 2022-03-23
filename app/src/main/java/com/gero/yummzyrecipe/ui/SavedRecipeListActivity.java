@@ -1,15 +1,15 @@
 package com.gero.yummzyrecipe.ui;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -22,11 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.gero.yummzyrecipe.Constants;
-import com.gero.yummzyrecipe.R;
-import com.gero.yummzyrecipe.adapters.FirebaseRecipeViewHolder;
-import com.gero.yummzyrecipe.models.Meal;
-import com.gero.yummzyrecipe.models.Recipe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,9 +30,11 @@ public class SavedRecipeListActivity extends AppCompatActivity {
     private DatabaseReference mRecipeReference;
     private FirebaseRecyclerAdapter<Meal, FirebaseRecipeViewHolder> mFirebaseAdapter;
 
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.recipeListRecycler)
     RecyclerView mRecyclerView;
 
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.shimmer_view_container)
     ShimmerFrameLayout mShimmerViewContainer;
 
@@ -50,6 +47,7 @@ public class SavedRecipeListActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        assert user != null;
         String uid = user.getUid();
 
         mRecipeReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_RECIPES).child(uid);

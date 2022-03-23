@@ -5,10 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".ui.RecipeListActivity">
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentRestaurantList"
-        android:name="com.kosgei.letscook.ui.SavedRecipeListFragment"
+        android:name="com.gero.yummzyrecipe.ui.RecipeDetailFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_saved_recipe_list" />
+        tools:layout="@layout/fragment_saved_recipe_list"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

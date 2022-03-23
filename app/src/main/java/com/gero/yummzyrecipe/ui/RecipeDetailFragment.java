@@ -1,14 +1,12 @@
 package com.gero.yummzyrecipe.ui;
 
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -22,20 +20,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.gero.yummzyrecipe.Constants;
 import com.gero.yummzyrecipe.R;
 import com.gero.yummzyrecipe.models.Meal;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.chip.Chip;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.gero.yummzyrecipe.Constants;
-import com.gero.yummzyrecipe.R;
-import com.gero.yummzyrecipe.models.Meal;
-import com.gero.yummzyrecipe.models.Recipe;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -43,7 +38,7 @@ import org.parceler.Parcels;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,33 +48,37 @@ import butterknife.ButterKnife;
  */
 public class RecipeDetailFragment extends Fragment implements View.OnClickListener {
 
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.image)
     ImageView image;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.name)
     TextView name;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.category)
     Chip category;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.area)
     Chip area;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.ingredients)
     TextView ingredients;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.measurements)
     TextView measurement;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.directions)
     TextView directions;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.video)
     Button video;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.save)
     Button save;
 
     private Meal meal;
 
-    private String mSource ="";
-
     private static final int REQUEST_IMAGE_CAPTURE = 111;
-
-    private ArrayList<Meal> mMeals;
-    private int mPosition;
 
     public static RecipeDetailFragment newInstance(ArrayList<Meal> meals, Integer position) {
         RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
@@ -108,8 +107,9 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
 
         setHasOptionsMenu(true);
 
-        mMeals = Parcels.unwrap(getArguments().getParcelable("recipes"));
-        mPosition = getArguments().getInt("position");
+        assert getArguments() != null;
+        ArrayList<Meal> mMeals = Parcels.unwrap(getArguments().getParcelable("recipes"));
+        int mPosition = getArguments().getInt("position");
         meal = mMeals.get(mPosition);
     }
     @Override
@@ -166,6 +166,7 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
         if(v == save)
         {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            assert user != null;
             String uid = user.getUid();
             DatabaseReference recipeRef = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_RECIPES).child(uid);
 
@@ -179,36 +180,31 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if (mSource.equals(Constants.SOURCE_SAVED)) {
-            inflater.inflate(R.menu.menu_photo, menu);
-        } else {
-            inflater.inflate(R.menu.menu_photo, menu);
-        }
+        inflater.inflate(R.menu.menu_photo, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_photo:
-                onLaunchCamera();
-            default:
-                break;
+        if (item.getItemId() == R.id.action_photo) {
+            onLaunchCamera();
         }
         return false;
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     public void onLaunchCamera() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+        if (takePictureIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
+        getActivity();
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
            image.setImageBitmap(imageBitmap);
@@ -222,7 +218,7 @@ public class RecipeDetailFragment extends Fragment implements View.OnClickListen
         String imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
         DatabaseReference ref = FirebaseDatabase.getInstance()
                 .getReference(Constants.FIREBASE_CHILD_RECIPES)
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
                 .child(meal.getId())
                 .child("imageUrl");
         ref.setValue(imageEncoded);

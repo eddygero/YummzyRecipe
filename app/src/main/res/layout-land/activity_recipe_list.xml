@@ -15,9 +15,9 @@
         android:orientation="horizontal">
 
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentRestaurantList"
-        android:name="com.kosgei.letscook.ui.RecipeListFragment"
+        android:name="com.gero.yummzyrecipe.ui.RecipeDetailFragment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="3"

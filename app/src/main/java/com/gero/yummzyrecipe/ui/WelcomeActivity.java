@@ -1,7 +1,6 @@
 package com.gero.yummzyrecipe.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -9,17 +8,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.gero.yummzyrecipe.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.gero.yummzyrecipe.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.to_login) Button toLogin;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.to_signup) Button toSignUp;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.title) TextView title;
 
     private FirebaseAuth mAuth;

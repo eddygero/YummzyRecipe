@@ -3,9 +3,7 @@ package com.gero.yummzyrecipe.services;
 
 import com.gero.yummzyrecipe.Constants;
 import com.gero.yummzyrecipe.models.Category;
-
 import com.gero.yummzyrecipe.models.Meal;
-import com.gero.yummzyrecipe.models.Recipe;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,6 +12,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -29,7 +28,7 @@ public class EdamamService {
     public static void findRecipes(String category, Callback callback) {
         OkHttpClient client = new OkHttpClient.Builder().build();
 
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.THE_MEAL_DB_FILTER_BY_CATEGORY).newBuilder();
+        HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse(Constants.THE_MEAL_DB_FILTER_BY_CATEGORY)).newBuilder();
         urlBuilder.addQueryParameter("c",category);
         String url = urlBuilder.build().toString();
         Request request = new Request.Builder()
@@ -44,6 +43,7 @@ public class EdamamService {
     public ArrayList<String> processFindRecipeResults(Response response) {
         ArrayList<String> mealsIds = new ArrayList<>();
         try {
+            assert response.body() != null;
             String jsonData = response.body().string();
             JSONObject latestMealsJson = new JSONObject(jsonData);
             JSONArray mealsJson = latestMealsJson.getJSONArray("meals");
@@ -53,9 +53,7 @@ public class EdamamService {
                     mealsIds.add(recipeJSON.getString("idMeal"));
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
         return mealsIds;
@@ -67,7 +65,7 @@ public class EdamamService {
     //latest meals
     public static void getLatestMeals(Callback callback) {
         OkHttpClient client = new OkHttpClient.Builder().build();
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.THE_MEAL_DB_LATEST_URL).newBuilder();
+        HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse(Constants.THE_MEAL_DB_LATEST_URL)).newBuilder();
         String url = urlBuilder.build().toString();
         Request request = new Request.Builder().url(url).build();
         Call call = client.newCall(request);
@@ -76,6 +74,7 @@ public class EdamamService {
     public ArrayList<Meal> processLatestMealsResults(Response response) {
         ArrayList<Meal> latestMeals = new ArrayList<>();
         try {
+            assert response.body() != null;
             String jsonData = response.body().string();
             JSONObject latestMealsJson = new JSONObject(jsonData);
             JSONArray mealsJson = latestMealsJson.getJSONArray("meals");
@@ -147,9 +146,7 @@ public class EdamamService {
                 }
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
@@ -159,7 +156,7 @@ public class EdamamService {
     //get categories
     public static void getAllCategories(Callback callback) {
         OkHttpClient client = new OkHttpClient.Builder().build();
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.THE_MEAL_DB_ALL_CATEGORIES_URL).newBuilder();
+        HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse(Constants.THE_MEAL_DB_ALL_CATEGORIES_URL)).newBuilder();
         String url = urlBuilder.build().toString();
         Request request = new Request.Builder().url(url).build();
         Call call = client.newCall(request);
@@ -168,6 +165,7 @@ public class EdamamService {
     public ArrayList<Category> processCategoryResults(Response response) {
         ArrayList<Category> categories = new ArrayList<>();
         try {
+            assert response.body() != null;
             String jsonData = response.body().string();
             JSONObject latestMealsJson = new JSONObject(jsonData);
             JSONArray mealsJson = latestMealsJson.getJSONArray("categories");
@@ -185,9 +183,7 @@ public class EdamamService {
                 }
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
@@ -200,7 +196,7 @@ public class EdamamService {
     public static void findDetails(String id, Callback callback) {
         OkHttpClient client = new OkHttpClient.Builder().build();
 
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.THE_MEAL_DB_FIND_MEAL_BY_ID).newBuilder();
+        HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse(Constants.THE_MEAL_DB_FIND_MEAL_BY_ID)).newBuilder();
         urlBuilder.addQueryParameter("i",id);
         String url = urlBuilder.build().toString();
         Request request = new Request.Builder()
@@ -215,6 +211,7 @@ public class EdamamService {
 
     public ArrayList<Meal> processMealsResults(Response response) {
         try {
+            assert response.body() != null;
             String jsonData = response.body().string();
             JSONObject latestMealsJson = new JSONObject(jsonData);
             JSONArray mealsJson = latestMealsJson.getJSONArray("meals");
@@ -289,9 +286,7 @@ public class EdamamService {
 
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 

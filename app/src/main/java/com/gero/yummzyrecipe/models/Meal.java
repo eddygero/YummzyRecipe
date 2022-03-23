@@ -6,10 +6,10 @@ import java.util.List;
 
 @Parcel
 public class Meal {
-    private String id,meal,name,category,area,instructions,tags,youtube,source,image;
-    private List<String> ingredients;
-    private List<String> measure;
-    private String mealUid;
+    public String id,meal,name,category,area,instructions,tags,youtube,source,image;
+    public List<String> ingredients;
+    public List<String> measure;
+    public String mealUid;
     String index;
 
     public Meal() {
@@ -17,7 +17,6 @@ public class Meal {
 
     public Meal(String id,String name, String category, String area, String instructions, String tags, String youtube, String source, String image, List<String> ingredients, List<String> measure) {
         this.id = id;
-        this.meal = meal;
         this.name = name;
         this.category = category;
         this.area = area;
@@ -77,32 +76,12 @@ public class Meal {
         return area;
     }
 
-    public void setArea(String area) {
-        this.area = area;
-    }
-
     public String getInstructions() {
         return instructions;
     }
 
-    public void setInstructions(String instructions) {
-        this.instructions = instructions;
-    }
-
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-
     public String getYoutube() {
         return youtube;
-    }
-
-    public void setYoutube(String youtube) {
-        this.youtube = youtube;
     }
 
     public String getSource() {
@@ -117,27 +96,12 @@ public class Meal {
         return ingredients;
     }
 
-    public void setIngredients(List<String> ingredients) {
-        this.ingredients = ingredients;
-    }
-
     public List<String> getMeasure() {
         return measure;
     }
 
-    public void setMeasure(List<String> measure) {
-        this.measure = measure;
-    }
-
-    public String getMealUid() {
-        return mealUid;
-    }
-
     public void setMealUid(String mealUid) {
         this.mealUid = mealUid;
-    }
-    public String getIndex() {
-        return index;
     }
 
     public void setIndex(String index) {

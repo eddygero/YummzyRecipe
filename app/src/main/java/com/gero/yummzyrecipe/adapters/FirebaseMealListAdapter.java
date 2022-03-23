@@ -1,5 +1,6 @@
 package com.gero.yummzyrecipe.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -24,16 +25,7 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.gero.yummzyrecipe.Constants;
-import com.gero.yummzyrecipe.R;
-import com.gero.yummzyrecipe.models.Meal;
-import com.gero.yummzyrecipe.ui.RecipeDetailActivity;
-import com.gero.yummzyrecipe.ui.RecipeDetailFragment;
-import com.gero.yummzyrecipe.util.ItemTouchHelperAdapter;
-import com.gero.yummzyrecipe.util.OnStartDragListener;
 
 import org.parceler.Parcels;
 
@@ -41,14 +33,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class FirebaseMealListAdapter extends FirebaseRecyclerAdapter<Meal,FirebaseRecipeViewHolder> implements ItemTouchHelperAdapter {
-    private DatabaseReference mRef;
-    private OnStartDragListener mOnStartDragListener;
-    private Context mContext;
+    private final OnStartDragListener mOnStartDragListener;
+    private final Context mContext;
 
     private int mOrientation;
 
-    private ChildEventListener mChildEventListener;
-    private ArrayList<Meal> mMeals = new ArrayList<>();
+    private final ArrayList<Meal> mMeals = new ArrayList<>();
 
 
     public FirebaseMealListAdapter(FirebaseRecyclerOptions<Meal> options,
@@ -56,39 +46,40 @@ public class FirebaseMealListAdapter extends FirebaseRecyclerAdapter<Meal,Fireba
                                    OnStartDragListener onStartDragListener,
                                    Context context){
         super(options);
-        mRef = ref.getRef();
+        DatabaseReference mRef = ref.getRef();
         mOnStartDragListener = onStartDragListener;
         mContext = context;
 
-        mChildEventListener = mRef.addChildEventListener(new ChildEventListener() {
+        mRef.addChildEventListener(new ChildEventListener() {
 
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String s) {
                 mMeals.add(dataSnapshot.getValue(Meal.class));
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, String s) {
 
             }
 
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
             }
 
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, String s) {
 
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
 
     }
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onBindViewHolder(@NonNull FirebaseRecipeViewHolder viewHolder, int position, @NonNull Meal meal) {
         viewHolder.bindRestaurant(meal);
@@ -99,34 +90,26 @@ public class FirebaseMealListAdapter extends FirebaseRecyclerAdapter<Meal,Fireba
         }
 
         //TODO FIX THIS
-        viewHolder.image.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getActionMasked() == MotionEvent.ACTION_DOWN ) {
-                    mOnStartDragListener.onStartDrag(viewHolder);
-                }
-                return false;
+        viewHolder.image.setOnTouchListener((v, event) -> {
+            if (event.getActionMasked() == MotionEvent.ACTION_DOWN ) {
+                mOnStartDragListener.onStartDrag(viewHolder);
             }
+            return false;
         });
 
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int itemPosition = viewHolder.getAdapterPosition();
+        viewHolder.itemView.setOnClickListener(view -> {
+            int itemPosition = viewHolder.getAdapterPosition();
 
-                if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    createDetailFragment(itemPosition);
-                } else
-            {
-                Intent intent = new Intent(mContext, RecipeDetailActivity.class);
-                intent.putExtra("position", itemPosition);
-                intent.putExtra("recipes", Parcels.wrap(mMeals));
+            if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                createDetailFragment(itemPosition);
+            } else
+        {
+            Intent intent = new Intent(mContext, RecipeDetailActivity.class);
+            intent.putExtra("position", itemPosition);
+            intent.putExtra("recipes", Parcels.wrap(mMeals));
 
-                mContext.startActivity(intent);
-            }
-                    }
-
-
+            mContext.startActivity(intent);
+        }
                 });
             }
 
@@ -149,11 +132,10 @@ public class FirebaseMealListAdapter extends FirebaseRecyclerAdapter<Meal,Fireba
     }
 
     @Override
-    public boolean onItemMove(int fromPosition, int toPosition){
+    public void onItemMove(int fromPosition, int toPosition){
         Collections.swap(mMeals, fromPosition, toPosition);
         notifyItemMoved(fromPosition, toPosition);
         setIndexInFirebase();
-        return false;
     }
 
     @Override

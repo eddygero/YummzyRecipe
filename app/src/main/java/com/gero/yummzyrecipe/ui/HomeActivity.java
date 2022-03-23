@@ -44,7 +44,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
    @BindView(R.id.categories_recyclerView)
     RecyclerView categoryRecyclerView;
 
-   @SuppressLint("NonConstantResourceId")
+
+
    @BindView(R.id.latest_recyclerView)
    RecyclerView latestRecyclerView;
 
@@ -110,7 +111,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         final EdamamService edamamService = new EdamamService();
         EdamamService.getAllCategories(new Callback() {
             @Override
-            public void onFailure(@NonNull Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
 
             }
 
@@ -119,21 +120,18 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
                 categories = edamamService.processCategoryResults(response);
 
-                HomeActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        categoryListAdapter = new CategoryListAdapter(categories,getApplicationContext());
-                        categoryRecyclerView.setAdapter(categoryListAdapter);
-                        //LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-                        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),2);
-                        categoryRecyclerView.setLayoutManager(layoutManager);
-                       categoryRecyclerView.setHasFixedSize(true);
+                HomeActivity.this.runOnUiThread(() -> {
+                    categoryListAdapter = new CategoryListAdapter(categories,getApplicationContext());
+                    categoryRecyclerView.setAdapter(categoryListAdapter);
+                    //LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+                    RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),2);
+                    categoryRecyclerView.setLayoutManager(layoutManager);
+                   categoryRecyclerView.setHasFixedSize(true);
 
-                        mShimmerViewContainer1.stopShimmer();
-                        mShimmerViewContainer1.setVisibility(View.GONE);
+                    mShimmerViewContainer1.stopShimmer();
+                    mShimmerViewContainer1.setVisibility(View.GONE);
 
 
-                    }
                 });
             }
         });
@@ -179,13 +177,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.home, menu);
-//        return true;
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -1,5 +1,6 @@
 package com.gero.yummzyrecipe.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -15,13 +16,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gero.yummzyrecipe.R;
-import com.gero.yummzyrecipe.R;
 import com.gero.yummzyrecipe.models.Meal;
-import com.gero.yummzyrecipe.models.Meal;
-import com.gero.yummzyrecipe.models.Recipe;
 import com.gero.yummzyrecipe.ui.RecipeDetailActivity;
-import com.gero.yummzyrecipe.ui.RecipeDetailActivity;
-import com.gero.yummzyrecipe.ui.RecipeDetailFragment;
 import com.gero.yummzyrecipe.ui.RecipeDetailFragment;
 import com.squareup.picasso.Picasso;
 
@@ -34,7 +30,7 @@ import butterknife.ButterKnife;
 
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder> {
     private Context context;
-    private ArrayList<Meal> recipes;
+    private final ArrayList<Meal> recipes;
 
     public RecipeListAdapter(Context context,ArrayList<Meal> recipes) {
         this.context = context;
@@ -60,14 +56,16 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     }
 
     public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        @SuppressLint("NonConstantResourceId")
         @BindView(R.id.recipe_name)
         TextView recipeTV;
+        @SuppressLint("NonConstantResourceId")
         @BindView(R.id.recipe_image)
         ImageView recipeImageView;
 
-        private Context context;
+        private final Context context;
 
-        private int mOrientation;
+        private final int mOrientation;
 
         RecipeViewHolder(@NonNull View itemView) {
             super(itemView);

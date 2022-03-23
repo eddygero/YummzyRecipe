@@ -1,25 +1,20 @@
 package com.gero.yummzyrecipe.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcel;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.gero.yummzyrecipe.Constants;
 import com.gero.yummzyrecipe.R;
-import com.gero.yummzyrecipe.R;
 import com.gero.yummzyrecipe.models.Category;
-import com.gero.yummzyrecipe.ui.RecipeListActivity;
 import com.gero.yummzyrecipe.ui.RecipeListActivity;
 import com.squareup.picasso.Picasso;
 
@@ -31,10 +26,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.CategoryViewHolder> {
-    private ArrayList<Category> categories = new ArrayList<>();
+    private final ArrayList<Category> categories;
     private Context context;
 
-    private static final String TAG = "CategoryListAdapter";
     public CategoryListAdapter(ArrayList<Category> categories, Context context) {
         this.categories = categories;
         this.context = context;
@@ -58,12 +52,14 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     }
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        @SuppressLint("NonConstantResourceId")
         @BindView(R.id.category_name)
         TextView categoryTV;
+        @SuppressLint("NonConstantResourceId")
         @BindView(R.id.category_image)
         ImageView categoryImageView;
 
-        private Context context;
+        private final Context context;
 
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);

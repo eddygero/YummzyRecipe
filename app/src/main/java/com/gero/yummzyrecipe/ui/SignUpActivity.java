@@ -1,8 +1,6 @@
 package com.gero.yummzyrecipe.ui;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,39 +10,44 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.gero.yummzyrecipe.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DatabaseReference;
+
 import com.google.firebase.database.FirebaseDatabase;
-import com.gero.yummzyrecipe.R;
 import com.wang.avi.AVLoadingIndicatorView;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = SignUpActivity.class.getSimpleName();
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.name) EditText names;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.email) EditText email;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.password) EditText password;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.confirm_password) EditText confirm_password;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.sign_up) Button signUp;
 
 
 
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.loading)
     AVLoadingIndicatorView loadingIndicatorView;
 
 
     private FirebaseAuth mAuth;
-
-    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +62,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        FirebaseDatabase.getInstance().getReference();
 
         signUp.setOnClickListener(this);
 
@@ -110,22 +113,19 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 loadingIndicatorView.show();
                 signUp.setEnabled(false);
                 mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
-                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    loadingIndicatorView.hide();
-                                    Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
-                                    //avoids using the back btn to go back to the signup activity after successful login
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    setDisplayName(task.getResult().getUser());
-                                    startActivity(intent);
-                                } else {
-                                    loadingIndicatorView.hide();
-                                    Toast.makeText(SignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                    signUp.setEnabled(true);
-                                }
+                        .addOnCompleteListener(this, task -> {
+                            if (task.isSuccessful()) {
+                                loadingIndicatorView.hide();
+                                Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
+                                //avoids using the back btn to go back to the signup activity after successful login
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                setDisplayName(Objects.requireNonNull(task.getResult().getUser()));
+                                startActivity(intent);
+                            } else {
+                                loadingIndicatorView.hide();
+                                Toast.makeText(SignUpActivity.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+                                signUp.setEnabled(true);
                             }
                         });
             }
@@ -139,12 +139,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 .setDisplayName(names.getText().toString().trim())
                 .build();
         firebaseUser.updateProfile(profileUpdates)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "User profile updated.");
-                        }
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "User profile updated.");
                     }
                 });
     }

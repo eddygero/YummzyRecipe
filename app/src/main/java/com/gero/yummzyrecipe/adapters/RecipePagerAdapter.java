@@ -5,16 +5,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-
 import com.gero.yummzyrecipe.models.Meal;
-import com.gero.yummzyrecipe.models.Recipe;
-
 import com.gero.yummzyrecipe.ui.RecipeDetailFragment;
 
 import java.util.ArrayList;
 
 public class RecipePagerAdapter extends FragmentPagerAdapter {
-    private ArrayList<Meal>recipes;
+    private final ArrayList<Meal>recipes;
 
     public RecipePagerAdapter(@NonNull FragmentManager fm,ArrayList<Meal>recipes) {
         super(fm);

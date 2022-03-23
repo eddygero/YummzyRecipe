@@ -1,8 +1,16 @@
 package com.gero.yummzyrecipe.ui;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
@@ -10,30 +18,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.facebook.shimmer.ShimmerFrameLayout;
-
 import com.gero.yummzyrecipe.Constants;
-
 import com.gero.yummzyrecipe.R;
-
 import com.gero.yummzyrecipe.adapters.RecipeListAdapter;
 import com.gero.yummzyrecipe.models.Category;
 import com.gero.yummzyrecipe.models.Meal;
-import com.gero.yummzyrecipe.models.Meal;
 import com.gero.yummzyrecipe.services.EdamamService;
-import com.gero.yummzyrecipe.services.EdamamService;
-import com.squareup.picasso.Picasso;
-
-import org.parceler.Parcels;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,11 +39,11 @@ import okhttp3.Response;
  * A simple {@link Fragment} subclass.
  */
 public class RecipeListFragment extends Fragment {
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.recipeListRecycler)
     RecyclerView recyclerView;
 
     private RecipeListAdapter recipeListAdapter;
-    public ArrayList<Meal> mMeals = new ArrayList<>();
 
     ArrayList<Meal> recipes;
 
@@ -69,6 +60,7 @@ public class RecipeListFragment extends Fragment {
 //    @BindView(R.id.title)
 //    TextView title;
 
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.shimmer_view_container)
     ShimmerFrameLayout mShimmerViewContainer;
 
@@ -107,12 +99,12 @@ public class RecipeListFragment extends Fragment {
         final EdamamService edamamService = new EdamamService();
         EdamamService.findRecipes(category, new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
 
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
 
                 mealIds = edamamService.processFindRecipeResults(response);
 
@@ -120,26 +112,23 @@ public class RecipeListFragment extends Fragment {
                 {
                     EdamamService.findDetails(id, new Callback() {
                         @Override
-                        public void onFailure(Call call, IOException e) {
+                        public void onFailure(@NonNull Call call, @NonNull IOException e) {
 
                         }
 
                         @Override
-                        public void onResponse(Call call, Response response) throws IOException {
+                        public void onResponse(@NonNull Call call, @NonNull Response response) {
                             recipes = edamamService.processMealsResults(response);
 
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    recipeListAdapter = new RecipeListAdapter(getActivity(),recipes);
-                                    recyclerView.setAdapter(recipeListAdapter);
-                                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-                                    recyclerView.setLayoutManager(layoutManager);
-                                    recyclerView.setHasFixedSize(true);
+                            requireActivity().runOnUiThread(() -> {
+                                recipeListAdapter = new RecipeListAdapter(getActivity(),recipes);
+                                recyclerView.setAdapter(recipeListAdapter);
+                                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                                recyclerView.setLayoutManager(layoutManager);
+                                recyclerView.setHasFixedSize(true);
 
-                                    mShimmerViewContainer.stopShimmer();
-                                    mShimmerViewContainer.setVisibility(View.GONE);
-                                }
+                                mShimmerViewContainer.stopShimmer();
+                                mShimmerViewContainer.setVisibility(View.GONE);
                             });
 
 
@@ -153,7 +142,7 @@ public class RecipeListFragment extends Fragment {
 
     @Override
     // Method is now void, menu inflater is now passed in as argument:
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
 
         // Call super to inherit method from parent:
         super.onCreateOptionsMenu(menu, inflater);
@@ -180,7 +169,7 @@ public class RecipeListFragment extends Fragment {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
 }

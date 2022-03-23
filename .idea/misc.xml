@@ -7,17 +7,23 @@
         <entry key="app/src/main/res/drawable/background.xml" value="0.181" />
         <entry key="app/src/main/res/drawable/ic_home.xml" value="0.181" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.181" />
+        <entry key="app/src/main/res/layout-land/activity_recipe_list.xml" value="0.12612612612612611" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/activity_recipe_detail.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/activity_recipe_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_recipes.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/activity_saved_recipe.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/category_list_item.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/content_home.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_recipe_detail.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/fragment_recipe_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/nav_header_home.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/recipe_list_item.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/recipe_list_item_2.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/recipe_list_item_2_placeholder.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/recipe_list_item_3.xml" value="0.19375" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.181" />
       </map>
     </option>
