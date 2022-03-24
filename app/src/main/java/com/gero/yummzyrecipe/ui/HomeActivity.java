@@ -46,8 +46,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-   @BindView(R.id.latest_recyclerView)
-   RecyclerView latestRecyclerView;
+   //@BindView(R.id.latest_recyclerView)
+   //RecyclerView latestRecyclerView;
 
   private LatestMealsAdapter latestMealsAdapter;
 
@@ -56,13 +56,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private ArrayList<Meal> latestMeals;
 
 
-    @SuppressLint("NonConstantResourceId")
-    @BindView(R.id.shimmer_view_container)
-    ShimmerFrameLayout mShimmerViewContainer;
+    //@SuppressLint("NonConstantResourceId")
+    //@BindView(R.id.shimmer_view_container)
+    //ShimmerFrameLayout mShimmerViewContainer;
 
-    @SuppressLint("NonConstantResourceId")
-    @BindView(R.id.shimmer_view_container1)
-    ShimmerFrameLayout mShimmerViewContainer1;
+    //@SuppressLint("NonConstantResourceId")
+    //@BindView(R.id.shimmer_view_container1)
+    //ShimmerFrameLayout mShimmerViewContainer1;
 
     FirebaseUser user;
 
@@ -128,8 +128,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     categoryRecyclerView.setLayoutManager(layoutManager);
                    categoryRecyclerView.setHasFixedSize(true);
 
-                    mShimmerViewContainer1.stopShimmer();
-                    mShimmerViewContainer1.setVisibility(View.GONE);
+                   // mShimmerViewContainer1.stopShimmer();
+                   // mShimmerViewContainer1.setVisibility(View.GONE);
 
 
                 });
@@ -153,15 +153,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
                 HomeActivity.this.runOnUiThread(() -> {
                     latestMealsAdapter = new LatestMealsAdapter(getApplicationContext(),latestMeals);
-                    latestRecyclerView.setAdapter(latestMealsAdapter);
+                    //latestRecyclerView.setAdapter(latestMealsAdapter);
                     //LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
-                    latestRecyclerView.setLayoutManager(layoutManager);
-                    latestRecyclerView.setHasFixedSize(true);
+                   // latestRecyclerView.setLayoutManager(layoutManager);
+                    //latestRecyclerView.setHasFixedSize(true);
 
-                    mShimmerViewContainer.stopShimmer();
-                    mShimmerViewContainer.setVisibility(View.GONE);
+                  //  mShimmerViewContainer.stopShimmer();
+                   // mShimmerViewContainer.setVisibility(View.GONE);
 
                 });
             }
