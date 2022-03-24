@@ -3,7 +3,7 @@
 
     <item name="shimmer_view_container1" type="id" />
     <item name="action_search" type="id" />
-    <item name="latest_recyclerView" type="id" />
+
 
 
 </resources>
